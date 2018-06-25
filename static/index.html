@@ -6,90 +6,105 @@
     <title>Coffee Time</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
   </head>
   <body>
-      <section class="hero is-medium">
-          <div class="hero-body" style="background-image: url('img/background.jpg'); background-repeat:no-repeat; background-position: center; width: 100%">
-              <div class="container">
-                  <h1 class="subtitle has-text-white-ter is-1">
-                      Coffee Time
-                  </h1>
-                  <h2 class="subtitle has-text-light is-6">
-                      Reserve and have a break.
-                  </h2>
-              </div>
-          </div>
-      </section>
-      <section class="section">
-          <div class="container">
-              <h1 class="subtitle has-text-grey-dark is-3">
-                  Reserve Coffee
-              </h1>
-              <div class="field is-horizontal">
-                  <div class="field-body">
-                      <div class="field">
-                          <p class="control is-expanded has-icons-left has-icons-right">
-                              <input class="input" type="date" placeholder="Email" value="alex@smith.com">
-                              <span class="icon is-small is-left">
-                                  <i class="fas fa-calendar"></i>
-                              </span>
-                          </p>
-                      </div>
-                      <div class="field">
-                          <p class="control is-expanded has-icons-left">
-                              <input class="input" type="text" placeholder="Name">
-                              <span class="icon is-small is-left">
-                                  <i class="fas fa-user"></i>
-                              </span>
-                          </p>
-                      </div>
+      <div id="app">
+          <section class="hero is-medium">
+              <div class="hero-body" style="background-image: url('img/background.jpg'); background-repeat:no-repeat; background-position: center; width: 100%">
+                  <div class="container">
+                      <h1 class="subtitle has-text-white-ter is-1">
+                          Coffee Time
+                      </h1>
+                      <h2 class="subtitle has-text-light is-6">
+                          Reserve and have a break.
+                      </h2>
                   </div>
               </div>
-              <div class="field is-grouped is-grouped-right">
-                  <p class="control">
-                      <a class="button is-dark">
-                          Submit
-                      </a>
-                  </p>
-                  <p class="control">
-                      <a class="button is-light">
-                          Cancel
-                      </a>
-                  </p>
+          </section>
+          <section class="section">
+              <div class="container">
+                  <h1 class="subtitle has-text-grey-dark is-3">
+                      Reserve Coffee
+                  </h1>
+                  <div class="field is-horizontal">
+                      <div class="field-body">
+                          <div class="field">
+                              <p class="control is-expanded has-icons-left has-icons-right">
+                                  <input class="input" type="date" v-model="date">
+                                  <span class="icon is-small is-left">
+                                      <i class="fas fa-calendar"></i>
+                                  </span>
+                              </p>
+                          </div>
+                          <div class="field">
+                              <p class="control is-expanded has-icons-left">
+                                  <input class="input" type="text" placeholder="Name">
+                                  <span class="icon is-small is-left">
+                                      <i class="fas fa-user"></i>
+                                  </span>
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="field is-grouped is-grouped-right">
+                      <p class="control">
+                          <a class="button is-dark">
+                              Submit
+                          </a>
+                      </p>
+                      <p class="control">
+                          <a class="button is-light">
+                              Cancel
+                          </a>
+                      </p>
+                  </div>
               </div>
-          </div>
 
-          <div class="container">
-              <h1 class="subtitle has-text-grey-dark is-3">
-                  Reservation table
-              </h1>
-              <table class="table is-fullwidth">
-                  <thead>
-                      <tr>
-                          <th>
-                              #
-                          </th>
-                          <th>
-                            <span class="icon is-small is-left">
-                                  <i class="fas fa-calendar"></i>
-                              </span>
-                              Date
-                          </th>
-                          <th>
-                              <span class="icon is-small is-left">
-                                  <i class="fas fa-user"></i>
-                              </span>
-                              Name
-                          </th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <th>0</th>
-                      <td>2018/12/24</td>
-                      <td>himetani</td>
-                  </tbody>
-              </table>
+              <div class="container">
+                  <h1 class="subtitle has-text-grey-dark is-3">
+                      Reservation table
+                  </h1>
+                  <table class="table is-fullwidth">
+                      <thead>
+                          <tr>
+                              <th>
+                                  #
+                              </th>
+                              <th>
+                                  <span class="icon is-small is-left">
+                                      <i class="fas fa-calendar"></i>
+                                  </span>
+                                  Date
+                              </th>
+                              <th>
+                                  <span class="icon is-small is-left">
+                                      <i class="fas fa-user"></i>
+                                  </span>
+                                  Name
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr v-for="(r, i) in reservations">
+                              <th>{{i}}</th>
+                              <td>{{r.date}}</td>
+                              <td>{{r.name}}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </section>
           </div>
-      </section>
+      <script src="index.js"></script>
+      <footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+        © Copyright 2018 <i class="fas fa-heart"></i> himetani
+    </p>
+  </div>
+</footer>
   </body>
 </html>
