@@ -41,7 +41,7 @@
                           </div>
                           <div class="field">
                               <p class="control is-expanded has-icons-left">
-                                  <input class="input" type="text" placeholder="Name">
+                                  <input class="input" type="text" placeholder="Name" v-model="name">
                                   <span class="icon is-small is-left">
                                       <i class="fas fa-user"></i>
                                   </span>
@@ -51,9 +51,9 @@
                   </div>
                   <div class="field is-grouped is-grouped-right">
                       <p class="control">
-                          <a class="button is-dark">
+                          <button v-on:click="addReservation" class="button is-dark">
                               Submit
-                          </a>
+                          </button>
                       </p>
                       <p class="control">
                           <a class="button is-light">
