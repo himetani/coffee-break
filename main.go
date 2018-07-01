@@ -68,9 +68,30 @@ type Reservation struct {
 	Name string    `json:"name"`
 }
 
+type response struct {
+	ExpiredReservations []Reservation `json:"expired_reservations"`
+	ValidReservations   []Reservation `json:"valid_reservations"`
+}
+
 func get(c echo.Context) error {
 	reservations := []Reservation{}
-	return c.JSON(http.StatusOK, reservations)
+	db.Find(&reservations)
+
+	yesterday := time.Now().Add(24 * -time.Hour)
+
+	var idx int
+	for i, r := range reservations {
+		if r.Date.After(yesterday) {
+			idx = i
+			break
+		}
+	}
+
+	res := &response{
+		ExpiredReservations: reservations[0:idx],
+		ValidReservations:   reservations[idx:],
+	}
+	return c.JSON(http.StatusOK, res)
 }
 
 func create(c echo.Context) error {

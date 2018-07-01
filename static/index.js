@@ -1,18 +1,23 @@
 var defaultDate = moment().add(1, 'days').format("YYYY-MM-DD")
 
+function update(ctx) {
+    axios
+        .get('http://localhost:8080/api/reservations')
+        .then(response => {
+            ctx.validReservations = response.data.valid_reservations
+        })
+}
+
 var app = new Vue({
     el: '#app',
     data: {
-        reservations: null,
+        validReservations: null,
+        expiredReservations: null,
         date: defaultDate,
         name: "",
-        min: defaultDate 
+        min: defaultDate
     },mounted () {
-        axios
-        .get('http://localhost:8080/api/reservations')
-        .then(response => {
-            this.reservations = response.data
-        })
+        update(this)
     }, methods:{
         create: function (event) {
             var fd = new FormData()
@@ -25,7 +30,7 @@ var app = new Vue({
                 config: { headers: {'Content-Type': 'multipart/form-data' }}
             })
             .then(response => {
-                console.log(response)
+                update(this)
             })
             event.preventDefault()
         }
