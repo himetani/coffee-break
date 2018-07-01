@@ -1,11 +1,12 @@
-var defaultDate = moment().add(1, 'days').format("YYYY-MM-DD");
+var defaultDate = moment().add(1, 'days').format("YYYY-MM-DD")
 
 var app = new Vue({
     el: '#app',
     data: {
         reservations: null,
         date: defaultDate,
-        name: ""
+        name: "",
+        min: defaultDate 
     },mounted () {
         axios
         .get('http://localhost:8080/api/reservations')

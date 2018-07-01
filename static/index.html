@@ -34,7 +34,7 @@
                           <div class="field-body">
                               <div class="field">
                                   <p class="control is-expanded has-icons-left has-icons-right">
-                                      <input class="input" type="date" v-model="date">
+                                      <input class="input" type="date" v-model="date" v-bind:min="min">
                                       <span class="icon is-small is-left">
                                           <i class="fas fa-calendar"></i>
                                       </span>
@@ -42,7 +42,7 @@
                               </div>
                               <div class="field">
                                   <p class="control is-expanded has-icons-left">
-                                      <input class="input" type="text" placeholder="Name" v-model="name">
+                                      <input class="input" type="text" placeholder="Name" v-model="name" required>
                                       <span class="icon is-small is-left">
                                           <i class="fas fa-user"></i>
                                       </span>
@@ -55,11 +55,6 @@
                               <button class="button is-dark">
                                   Submit
                               </button>
-                          </p>
-                          <p class="control">
-                              <a class="button is-light">
-                                  Cancel
-                              </a>
                           </p>
                       </div>
                   </form>
