@@ -29,43 +29,45 @@
                   <h1 class="subtitle has-text-grey-dark is-3">
                       Reserve Coffee
                   </h1>
-                  <div class="field is-horizontal">
-                      <div class="field-body">
-                          <div class="field">
-                              <p class="control is-expanded has-icons-left has-icons-right">
-                                  <input class="input" type="date" v-model="date">
-                                  <span class="icon is-small is-left">
-                                      <i class="fas fa-calendar"></i>
-                                  </span>
-                              </p>
-                          </div>
-                          <div class="field">
-                              <p class="control is-expanded has-icons-left">
-                                  <input class="input" type="text" placeholder="Name" v-model="name">
-                                  <span class="icon is-small is-left">
-                                      <i class="fas fa-user"></i>
-                                  </span>
-                              </p>
+                  <form @submit="create" action="http://localhost:8080/api/reservations" method="put">
+                      <div class="field is-horizontal">
+                          <div class="field-body">
+                              <div class="field">
+                                  <p class="control is-expanded has-icons-left has-icons-right">
+                                      <input class="input" type="date" v-model="date">
+                                      <span class="icon is-small is-left">
+                                          <i class="fas fa-calendar"></i>
+                                      </span>
+                                  </p>
+                              </div>
+                              <div class="field">
+                                  <p class="control is-expanded has-icons-left">
+                                      <input class="input" type="text" placeholder="Name" v-model="name">
+                                      <span class="icon is-small is-left">
+                                          <i class="fas fa-user"></i>
+                                      </span>
+                                  </p>
+                              </div>
                           </div>
                       </div>
-                  </div>
-                  <div class="field is-grouped is-grouped-right">
-                      <p class="control">
-                          <button v-on:click="addReservation" class="button is-dark">
-                              Submit
-                          </button>
-                      </p>
-                      <p class="control">
-                          <a class="button is-light">
-                              Cancel
-                          </a>
-                      </p>
-                  </div>
+                      <div class="field is-grouped is-grouped-right">
+                          <p class="control">
+                              <button class="button is-dark">
+                                  Submit
+                              </button>
+                          </p>
+                          <p class="control">
+                              <a class="button is-light">
+                                  Cancel
+                              </a>
+                          </p>
+                      </div>
+                  </form>
               </div>
 
               <div class="container">
                   <h1 class="subtitle has-text-grey-dark is-3">
-                      Reservation table
+                      Waiting list
                   </h1>
                   <table class="table is-fullwidth">
                       <thead>

@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `coffeetime`.`reservations`;
 CREATE TABLE `coffeetime`.`reservations` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `date` varchar(64) NOT NULL,
+  `date` DATE NOT NULL,
   `name` varchar(64) NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
