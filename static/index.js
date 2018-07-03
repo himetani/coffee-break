@@ -8,6 +8,14 @@ function update(ctx) {
         })
 }
 
+function hideNotificationFn(ctx) {
+    return function() {
+        ctx.success = false
+        ctx.fail = false
+    }
+}
+
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -15,7 +23,10 @@ var app = new Vue({
         expiredReservations: null,
         date: defaultDate,
         name: "",
-        min: defaultDate
+        min: defaultDate,
+        success: false,
+        fail: false,
+        errorMsg: ""
     },mounted () {
         update(this)
     }, methods:{
@@ -31,6 +42,10 @@ var app = new Vue({
             })
             .then(response => {
                 update(this)
+                this.success = true
+                this.date = defaultDate
+                var hideNodification = hideNotificationFn(this)
+                setTimeout(hideNodification, 1000)
             })
             event.preventDefault()
         }

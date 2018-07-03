@@ -58,6 +58,14 @@
                           </p>
                       </div>
                   </form>
+                  <div class="notification is-success tile is-2 is-pulled-right" v-if="success">
+                      <button class="delete"></button>
+                      <p>Reserved!</p>
+                  </div>
+                   <div class="notification is-success tile is-2 is-pulled-right" v-if="fail">
+                      <button class="delete"></button>
+                      <p>{{errorMsg}}</p>
+                  </div>
               </div>
 
               <div class="container">
