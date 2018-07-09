@@ -47,7 +47,7 @@ func main() {
 
 	e.GET("/api/reservations", get)
 	e.GET("/api/debug", create)
-	e.PUT("/api/reservations", create)
+	e.POST("/api/reservations", create)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }
@@ -103,6 +103,11 @@ func create(c echo.Context) error {
 		return err
 	}
 
-	db.Create(&Reservation{Date: t, Name: name})
-	return nil
+	r := &Reservation{Date: t, Name: name}
+	if dbc := db.Create(r); dbc.Error != nil {
+		c.Logger().Info(dbc.Error)
+		return c.String(http.StatusConflict, "Cant't create record")
+	}
+
+	return c.JSON(http.StatusOK, r)
 }

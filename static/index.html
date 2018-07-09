@@ -52,22 +52,22 @@
                       </div>
                       <div class="field is-grouped is-grouped-right">
                           <p class="control">
-                              <button class="button is-dark">
-                                  Submit
+                              <button class="button is-dark" v-if="buttonType == 'submit'">
+                                  Submit!
+                              </button>
+                              <button class="button is-dark" v-if="buttonType == 'processing'">
+                                  Processing
+                              </button>
+                              <button class="button is-success" v-if="buttonType == 'success'">
+                                  Success
+                              </button>
+                              <button class="button is-danger" v-if="buttonType == 'fail'">
+                                  Error
                               </button>
                           </p>
                       </div>
                   </form>
-                  <div class="notification is-success tile is-2 is-pulled-right" v-if="success">
-                      <button class="delete"></button>
-                      <p>Reserved!</p>
-                  </div>
-                   <div class="notification is-success tile is-2 is-pulled-right" v-if="fail">
-                      <button class="delete"></button>
-                      <p>{{errorMsg}}</p>
-                  </div>
               </div>
-
               <div class="container">
                   <h1 class="subtitle has-text-grey-dark is-3">
                       Waiting list

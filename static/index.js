@@ -8,13 +8,11 @@ function update(ctx) {
         })
 }
 
-function hideNotificationFn(ctx) {
+function toSubmitFn(ctx) {
     return function() {
-        ctx.success = false
-        ctx.fail = false
+        ctx.buttonType = 'submit'
     }
 }
-
 
 var app = new Vue({
     el: '#app',
@@ -24,29 +22,40 @@ var app = new Vue({
         date: defaultDate,
         name: "",
         min: defaultDate,
-        success: false,
-        fail: false,
-        errorMsg: ""
+        buttonType: "submit"
     },mounted () {
         update(this)
     }, methods:{
         create: function (event) {
+            if(this.buttonType !== "submit") {
+                event.preventDefault()
+                return
+            }
+            this.buttonType = "processing"
             var fd = new FormData()
             fd.set("name", this.name)
             fd.set("date", new Date(this.date).toISOString())
             axios({
-                method: 'put',
+                method: 'post',
                 url: 'http://localhost:8080/api/reservations',
                 data: fd,
                 config: { headers: {'Content-Type': 'multipart/form-data' }}
             })
             .then(response => {
+                console.log(response)
                 update(this)
-                this.success = true
                 this.date = defaultDate
-                var hideNodification = hideNotificationFn(this)
-                setTimeout(hideNodification, 1000)
-            })
+                this.buttonType = 'success'
+                this.name = ""
+                var toSubmit = toSubmitFn(this)
+                setTimeout(toSubmit, 5000)
+            }).catch(error => {
+                this.date = defaultDate
+                this.buttonType = 'fail'
+                this.name = ""
+                var toSubmit = toSubmitFn(this)
+                setTimeout(toSubmit, 5000)
+            });
             event.preventDefault()
         }
     }
